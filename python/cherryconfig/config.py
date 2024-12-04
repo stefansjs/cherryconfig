@@ -42,8 +42,8 @@ SOFTWARE.
 """
 import re
 
-from pyconf import context_manager
-from pyconf.section import Section
+from cherryconfig import context_manager
+from cherryconfig.section import Section
 
 
 class Config:

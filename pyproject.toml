@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pyconf"
+name = "cherryconfig"
 version = "1.0a"
 description = "Declarative config file interaface for python applications"
 authors = ["Stefan Sullivan <stefan.sullivan@gmail.com>"]

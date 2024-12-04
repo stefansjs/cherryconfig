@@ -2,8 +2,8 @@
 This is really hard to test. Pyconf provides an API for declarative global configs. 
 That means encapsulating those configs is going to be a challenge. We'll see
 """
-from pyconf.config import Config, Parameter
-from pyconf.section import Section
+from cherryconfig.config import Config, Parameter
+from cherryconfig.section import Section
 
 
 def test_basic_config():
