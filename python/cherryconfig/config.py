@@ -44,6 +44,7 @@ import re
 
 from cherryconfig import context_manager
 from cherryconfig.section import Section
+from cherryconfig.string_manipulation import camel_case_to_snake_case, camel_case_to_dash_sep
 
 
 class Config:
@@ -77,38 +78,3 @@ class Config:
         context.append(section)
 
         return section
-
-
-class Parameter:
-    def __init__(self, name, default=None, type=str, cl=True, env=True, cl_flags=None, env_var=None, context=None):
-        if context is None:
-            context = context_manager.CURRENT_CONTEXT
-
-        if cl and cl_flags is None and context._cl_prefix is not None:
-            cl_flags = [f'{context._cl_prefix}-{camel_case_to_dash_sep(name)}']
-        if env and env_var is None:
-            env_var = f'{context._env_prefix}_{camel_case_to_snake_case(name)}'
-
-        context.append(self)
-        self.name = name
-        self.cl_flags = cl_flags
-        self.env_var = env_var
-        self._value = None
-        self._default = default
-        self._decode = type
-
-    def get_value(self, readers):
-        for r in readers:
-            if r.has(self.name):
-                return r.get(self.name, cl_flags=self.cl_flags, env_var=self.env_var)
-
-        return self._default
-
-
-def camel_case_to_snake_case(s):
-    regex = re.compile(r'(?<!^)(?=[A-Z])')
-    return regex.sub('_', s).upper()
-
-def camel_case_to_dash_sep(s):
-    snake_case = camel_case_to_snake_case(s)
-    return snake_case.replace('_', '-')

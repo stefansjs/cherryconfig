@@ -21,5 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from pyconf import context_manager
+import re
 
+
+def camel_case_to_snake_case(s):
+    regex = re.compile(r'(?<!^)(?=[A-Z])')
+    return regex.sub('_', s).upper()
+
+def camel_case_to_dash_sep(s):
+    snake_case = camel_case_to_snake_case(s)
+    return snake_case.replace('_', '-')
